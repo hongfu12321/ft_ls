@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/02 21:42:50 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 00:36:44 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ int		check_flag(char **av)
 	return (i);
 }
 
-t_dir	*get_dir(char *dir_name)
+t_dnode	*get_node(char *dir_name)
 {
 	DIR		*dp;
-	t_dir	*dir;
-	t_dir	*tmp;
+	t_dnode	*node;
+	t_dnode	*tmp;
 	DIRENT	*info;
 	STAT	statbuf;
 
-	dir = NULL;
+	node = NULL;
 	tmp = NULL;
 	if ((dp = opendir(dir_name)) == NULL)
 		return (NULL);
@@ -52,39 +52,37 @@ t_dir	*get_dir(char *dir_name)
 	while ((info = readdir(dp)) != NULL)
 	{
 		lstat(info->d_name, &statbuf);
-		tmp = create_dir(info->d_name, statbuf);
+		tmp = create_node(info->d_name, statbuf);
 		if (S_ISDIR(statbuf.st_mode))
 		{
 			if (ft_strcmp(tmp->dir_name, ".") != 0 &&
 					ft_strcmp(tmp->dir_name, "..") != 0)
-				tmp->child = get_dir(info->d_name);
+				tmp->child = get_node(info->d_name);
 		}
-		dir = dir_add_last(dir, tmp);
+		node = node_add_last(node, tmp);
 	}
 	chdir("..");
 	closedir(dp);
-	return (dir);
+	return (node);
 }
 
 int		main(int ac, char **av)
 {
 	int		i;
-	t_dir	*dir;
+	t_dnode	*node;
 
-	i = (ac > 1) ? check_flag(&av[1]) : 1;
+	i = (ac > 1) ? check_flag(av) : 1;
 	if (i == ac)
 	{
-		dir = get_dir(".");
-		print_dir(dir, 0);
+		node = get_node(".");
+		print_node(node, 0);
 	}
-	while (av[i] && (dir = get_dir(av[i])))
+	ft_printf("i = %d\n", i);
+	while (av[i] && (node = get_node(av[i])))
 	{
-		test_print(dir);
-		ft_printf("--------------------\n");
-		dir = sort_dir(dir);
-		ft_printf("--------------------\n");
-		test_print(dir);
-//		free_dir(dir);
+		sort_node(node);
+		print_node(node, 0);
+//		free_node(node);
 		i++;
 	}
 

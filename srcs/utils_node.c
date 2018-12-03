@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_dir.c                                        :+:      :+:    :+:   */
+/*   utils_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:19:52 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/02 21:40:54 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 00:20:47 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_dir	*dir_add_last(t_dir *begin_dir, t_dir *new_dir)
+t_dnode	*node_add_last(t_dnode *begin_node, t_dnode *new_node)
 {
-	t_dir *tmp;
+	t_dnode *tmp;
 
-	if (begin_dir == NULL)
-		return (new_dir);
-	tmp = begin_dir;
+	if (begin_node == NULL)
+		return (new_node);
+	tmp = begin_node;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new_dir;
-	new_dir->prev = tmp;
-	return (begin_dir);
+	tmp->next = new_node;
+	return (begin_node);
 }
 
-void	test_print(t_dir *dir)
+void	test_print(t_dnode *node)
 {
-	while (dir)
+	while (node)
 	{
-		ft_printf("%s\n", dir->dir_name);
-		dir = dir->next;
+		ft_printf("%s\n", node->dir_name);
+		node = node->next;
 	}
 }

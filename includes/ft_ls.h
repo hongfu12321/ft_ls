@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/02 21:41:53 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 00:25:00 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 typedef struct		s_dir
 {
-	char			*dir_name;
 	char			*permission;
 	int				lnk_nbr;
 	char			*uid;
@@ -43,27 +42,35 @@ typedef struct		s_dir
 	struct s_dir	*child;
 }					t_dir;
 
+typedef struct		s_dnode
+{
+	char			*dir_name;
+	t_dir			*dir_info;
+	struct s_dnode	*next;
+	struct s_dnode	*child;
+}					t_dnode;
+
 _Bool				g_flag[5];
 
 /*
 ** create_dir.c
 */
-t_dir				*create_dir(char *dir_name, STAT statbuf);
+t_dnode				*create_node(char *dir_name, STAT statbuf);
 
 /*
 ** sort_dir.c
 */
-t_dir				*sort_dir(t_dir *dir);
+t_dnode				*sort_node(t_dnode *node);
 
 /*
 ** print_dir.c
 */
-void				print_dir(t_dir *dir, int width);
+void				print_node(t_dnode *node, int width);
 
 /*
 ** utils.c
 */
-void				test_print(t_dir *dir);
-t_dir				*dir_add_last(t_dir *begin_dir, t_dir *new_dir);
+void				test_print(t_dnode *node);
+t_dnode				*node_add_last(t_dnode *begin_node, t_dnode *new_node);
 
 #endif

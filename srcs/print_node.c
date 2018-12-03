@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_dir.c                                        :+:      :+:    :+:   */
+/*   print_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/02 21:34:43 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 00:19:50 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	print_dir_detail(t_dir *dir, int width)
+static void	print_node_detail(t_dir *dir, char *dir_name, int width)
 {
 	while (--width >= 0)
 		write(1, " ", 1);
@@ -22,16 +22,16 @@ static void	print_dir_detail(t_dir *dir, int width)
 	ft_printf("%s  ", dir->gid);
 	ft_printf("%-7lld", dir->file_size);
 	ft_printf("%-s ", (dir->mod_time) + 4);
-	ft_printf("\033[34m%s\033[0m\n", dir->dir_name);
+	ft_printf("\033[34m%s\033[0m\n", dir_name);
 }
 
-void		print_dir(t_dir *dir, int width)
+void		print_node(t_dnode *node, int width)
 {
-	while (dir)
+	while (node)
 	{
-		print_dir_detail(dir, width);
-		if (dir->child != NULL)
-			print_dir(dir->child, width + 4);
-		dir = dir->next;
+		print_node_detail(node->dir_info, node->dir_name, width);
+		if (node->child != NULL)
+			print_node(node->child, width + 4);
+		node = node->next;
 	}
 }
