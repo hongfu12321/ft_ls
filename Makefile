@@ -6,7 +6,7 @@
 #    By: mjacques <mjacques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/09 11:32:00 by mjacques          #+#    #+#              #
-#    Updated: 2018/11/30 22:25:29 by fhong            ###   ########.fr        #
+#    Updated: 2018/12/02 21:29:40 by fhong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT		= libft/libft.a
 INCLUDES	= -I includes/\
 			  -I libft/header
 
-BASE		= main.c
+BASE		= main.c create_dir.c sort_dir.c print_dir.c utils_dir.c
 FUNCTIONS	= $(BASE)
 
 FILES		= $(addprefix srcs/, $(FUNCTIONS))

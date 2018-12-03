@@ -6,7 +6,7 @@
 #    By: mjacques <mjacques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/09 11:32:00 by mjacques          #+#    #+#              #
-#    Updated: 2018/11/30 22:12:15 by fhong            ###   ########.fr        #
+#    Updated: 2018/12/02 16:39:25 by fhong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ RM			= rm -rf
 NAMELIB		= libft.a
 CFLAGS		= -Wall -Wextra -Werror
 
-HEADER		= -I header/
+HEADER		= -I includes/
 
 IS			= ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isspace.c\
 			  ft_isprint.c
