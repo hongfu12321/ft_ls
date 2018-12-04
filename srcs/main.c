@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/03 00:36:44 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/04 03:02:43 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int		main(int ac, char **av)
 	if (i == ac)
 	{
 		node = get_node(".");
-		print_node(node, 0);
+		print_node(node);
 	}
 	ft_printf("i = %d\n", i);
 	while (av[i] && (node = get_node(av[i])))
 	{
 		sort_node(node);
-		print_node(node, 0);
+		print_node(node);
 //		free_node(node);
 		i++;
 	}

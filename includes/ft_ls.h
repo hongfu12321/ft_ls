@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/03 18:00:46 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/04 02:54:55 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_dnode				*sort_node(t_dnode *node);
 /*
 ** print_dir.c
 */
-void				print_node(t_dnode *node, int width);
+void				print_node(t_dnode *node);
 
 /*
 ** utils.c
