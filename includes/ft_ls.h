@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/03 00:25:00 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 18:00:46 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,8 @@ void				print_node(t_dnode *node, int width);
 void				test_print(t_dnode *node);
 t_dnode				*node_add_last(t_dnode *begin_node, t_dnode *new_node);
 
+#endif
+
+#ifndef st_mtime
+# define st_mtime	st_mtimespec.tv_sec
 #endif

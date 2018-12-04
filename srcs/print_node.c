@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/03 00:19:50 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 20:09:22 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	print_node_detail(t_dir *dir, char *dir_name, int width)
 	ft_printf("%s  ", dir->permission);
 	ft_printf("%2d ", dir->lnk_nbr);
 	ft_printf("%s  ", dir->uid);
-	ft_printf("%s  ", dir->gid);
-	ft_printf("%-7lld", dir->file_size);
-	ft_printf("%-s ", (dir->mod_time) + 4);
+	ft_printf("%s ", dir->gid);
+	ft_printf("%6lld ", dir->file_size);
+	ft_printf("%s ", dir->mod_time);
 	ft_printf("\033[34m%s\033[0m\n", dir_name);
 }
 

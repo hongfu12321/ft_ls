@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:18:22 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/03 01:01:12 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/03 20:05:32 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ static void	dir_permission(t_dir *dir, STAT *statbuf)
 	ft_strncpy(dir->permission, buf, 10);
 }
 
+static char	*dir_mod_time(STAT statbuf)
+{
+	char 	*mod;
+	char	*time;
+
+	mod = ft_strnew(12);
+	time = ctime(&statbuf.st_mtime);
+	ft_strncpy(mod, &time[4], 12);
+	return (mod);
+}
+
 t_dnode		*create_node(char *dir_name, STAT statbuf)
 {
 	t_dnode	*node;
@@ -56,8 +67,8 @@ t_dnode		*create_node(char *dir_name, STAT statbuf)
 	node->dir_info = (t_dir *)malloc(sizeof(t_dir));
 	node->dir_info->lnk_nbr = (int)statbuf.st_nlink;
 	node->dir_info->file_size = (long long)statbuf.st_size;
-	node->dir_info->mod_time = ctime(&statbuf.st_mtime);
-	node->dir_info->mod_time[16] = '\0';
+	//node->dir_info->mod_time = ft_strdup(ctime(&statbuf.st_mtime));
+	node->dir_info->mod_time = dir_mod_time(statbuf);
 	dir_uid_gid(node->dir_info, &statbuf);
 	dir_permission(node->dir_info, &statbuf);
 	return (node);
