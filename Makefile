@@ -6,19 +6,20 @@
 #    By: mjacques <mjacques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/09 11:32:00 by mjacques          #+#    #+#              #
-#    Updated: 2018/12/03 00:07:56 by fhong            ###   ########.fr        #
+#    Updated: 2018/12/04 03:35:33 by fhong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= gcc
 RM			= rm -rf
 NAME		= ft_ls
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror# -g -fsanitize=address
 LIBFT		= libft/libft.a
 INCLUDES	= -I includes/\
 			  -I libft/header
 
-BASE		= main.c create_node.c sort_node.c print_node.c utils_node.c
+BASE		= main.c create_node.c sort_node.c print_node.c utils_node.c\
+			  free_node.c
 FUNCTIONS	= $(BASE)
 
 FILES		= $(addprefix srcs/, $(FUNCTIONS))

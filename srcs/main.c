@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/04 03:02:43 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/04 03:32:38 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		main(int ac, char **av)
 	{
 		sort_node(node);
 		print_node(node);
-//		free_node(node);
+		free_node(node);
 		i++;
 	}
 

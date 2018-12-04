@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/04 02:54:55 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/04 03:32:02 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ typedef struct		s_dir
 	char			*gid;
 	long long		file_size;
 	char			*mod_time;
-	struct s_dir	*prev;
-	struct s_dir	*next;
-	struct s_dir	*child;
 }					t_dir;
 
 typedef struct		s_dnode
@@ -66,6 +63,11 @@ t_dnode				*sort_node(t_dnode *node);
 ** print_dir.c
 */
 void				print_node(t_dnode *node);
+
+/*
+** free_dir.c
+*/
+void				free_node(t_dnode *node);
 
 /*
 ** utils.c
