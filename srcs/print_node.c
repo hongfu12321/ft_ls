@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/06 12:10:39 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/06 18:29:08 by fuhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ static void	print_node_detail(t_dir *dir)
 	ft_printf("%2d ", dir->lnk_nbr);
 	ft_printf("%s  ", dir->uid);
 	ft_printf("%s ", dir->gid);
-	ft_printf("%6lld ", dir->file_size);
+	ft_printf("%5lld ", dir->file_size);
 	ft_printf("%s ", dir->mod_time);
 }
 
 void		print_node(t_dnode *node)
 {
+	(void)info;
 	(R_FLAG) ? ft_printf("%s:\n", "DIR_NAME") : 0;
 	(l_FLAG) ? ft_printf("total %3d\n", 0) : 0;
 	while (node)
