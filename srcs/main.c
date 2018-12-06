@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/04 03:32:38 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/06 12:02:13 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,26 @@ t_dnode	*get_node(char *dir_name)
 int		main(int ac, char **av)
 {
 	int		i;
+	int		check;
 	t_dnode	*node;
 
 	i = (ac > 1) ? check_flag(av) : 1;
+	check = 0;
 	if (i == ac)
+		check = 1;
+	while (check == 1 || (i < ac && (node = get_node(av[i]))))
 	{
-		node = get_node(".");
-		print_node(node);
-	}
-	ft_printf("i = %d\n", i);
-	while (av[i] && (node = get_node(av[i])))
-	{
+		if (check == 1)
+		{
+			node = get_node(".");
+			check = 0;
+		}
 		sort_node(node);
 		print_node(node);
 		free_node(node);
 		i++;
 	}
-
+//	while (1)
+//		;
 	return (0);
 }

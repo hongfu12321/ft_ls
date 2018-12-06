@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/04 03:32:02 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/06 11:52:20 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <grp.h>
 # include "../libft/includes/libft.h"
 
-# define R_FLAG		0
-# define l_FLAG 	1
-# define a_FLAG 	2
-# define r_FLAG 	3
-# define t_FLAG 	4
+# define R_FLAG		g_flag[0]
+# define l_FLAG 	g_flag[1]
+# define a_FLAG 	g_flag[2]
+# define r_FLAG 	g_flag[3]
+# define t_FLAG 	g_flag[4]
 
 # define DIRENT		struct dirent
 # define STAT		struct stat

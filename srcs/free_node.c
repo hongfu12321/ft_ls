@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 03:22:26 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/04 03:36:20 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/04 12:38:28 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	free_dir(t_dir *dir)
 	ft_strdel(&dir->uid);
 	ft_strdel(&dir->gid);
 	ft_strdel(&dir->mod_time);
+	free(dir);
 }
 
 void		free_node(t_dnode *node)
