@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/06 18:29:34 by fuhong           ###   ########.fr       */
+/*   Updated: 2018/12/08 21:36:03 by fuhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		check_flag(char **av)
 	return (i);
 }
 
-t_dnode	*get_node(char *dir_name, t_print_info *p_info)
+t_dnode	*get_node(char *dir_name)
 {
 	DIR		*dp;
 	t_dnode	*node;
@@ -46,7 +46,6 @@ t_dnode	*get_node(char *dir_name, t_print_info *p_info)
 
 	node = NULL;
 	tmp = NULL;
-	(void)p_info;
 	if ((dp = opendir(dir_name)) == NULL)
 		return (NULL);
 	chdir(dir_name);
@@ -80,7 +79,7 @@ int		main(int ac, char **av)
 		if (check-- == 1)
 			node = get_node(".");
 		sort_node(node);
-		print_node(node, p_info);
+		print_node(node);
 		free_node(node);
 		i++;
 	}

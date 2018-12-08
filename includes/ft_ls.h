@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/06 18:28:40 by fuhong           ###   ########.fr       */
+/*   Updated: 2018/12/08 21:35:30 by fuhong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,16 @@ typedef struct		s_dnode
 {
 	char			*dir_name;
 	t_dir			*dir_info;
-	t_print_info	*p_info;
 	struct s_dnode	*next;
 	struct s_dnode	*child;
 }					t_dnode;
+
+typedef struct		s_ls
+{
+	t_dnode			*node;
+	t_print_info	*info;
+	struct s_ls		*child;
+}					t_ls;
 
 _Bool				g_flag[5];
 
