@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:19:52 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/03 00:20:47 by fhong            ###   ########.fr       */
+/*   Updated: 2018/12/29 05:03:04 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,17 @@ void	test_print(t_dnode *node)
 		ft_printf("%s\n", node->dir_name);
 		node = node->next;
 	}
+}
+
+int		my_nbrlen(long long size)
+{
+	int len;
+
+	len = 0;
+	while (size > 0)
+	{
+		size /= 10;
+		++len;
+	}
+	return (len);
 }

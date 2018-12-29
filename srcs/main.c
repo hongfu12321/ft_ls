@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/06 18:29:34 by fuhong           ###   ########.fr       */
+/*   Updated: 2018/12/29 05:32:33 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		check_flag(char **av)
 	return (i);
 }
 
-t_dnode	*get_node(char *dir_name, t_print_info *p_info)
+t_dnode	*get_node(char *dir_name)
 {
 	DIR		*dp;
 	t_dnode	*node;
@@ -46,7 +46,6 @@ t_dnode	*get_node(char *dir_name, t_print_info *p_info)
 
 	node = NULL;
 	tmp = NULL;
-	(void)p_info;
 	if ((dp = opendir(dir_name)) == NULL)
 		return (NULL);
 	chdir(dir_name);
@@ -69,18 +68,23 @@ t_dnode	*get_node(char *dir_name, t_print_info *p_info)
 
 int		main(int ac, char **av)
 {
-	int				i;
-	int				check;
-	t_dnode			*node;
+	int		i;
+	int		check;
+	t_dnode	*node;
 
 	i = (ac > 1) ? check_flag(av) : 1;
-	check = (i == ac) ? 1 : 0;
+	check = 0;
+	if (i == ac)
+		check = 1;
 	while (check == 1 || (i < ac && (node = get_node(av[i]))))
 	{
-		if (check-- == 1)
+		if (check == 1)
+		{
 			node = get_node(".");
-		sort_node(node);
-		print_node(node, p_info);
+			check = 0;
+		}
+//		node = sort_node(node);
+		print_node(node);
 		free_node(node);
 		i++;
 	}

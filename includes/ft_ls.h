@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/06 18:28:40 by fuhong           ###   ########.fr       */
+/*   Updated: 2018/12/29 05:44:10 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,6 @@
 # define DIRENT		struct dirent
 # define STAT		struct stat
 
-typedef struct		s_print_info
-{
-	int				total_block;
-	int				max_lnk_nbr;
-	int				max_uid;
-	int				max_gid;
-	int				max_filesize;
-	int				max_filename;
-}					t_print_info;
-
-
 typedef struct		s_dir
 {
 	char			*permission;
@@ -54,10 +43,18 @@ typedef struct		s_dnode
 {
 	char			*dir_name;
 	t_dir			*dir_info;
-	t_print_info	*p_info;
 	struct s_dnode	*next;
 	struct s_dnode	*child;
 }					t_dnode;
+
+typedef struct		s_p_info
+{
+	int				max_name;
+	int				max_lnk;
+	int				max_uid;
+	int				max_gid;
+	int				max_size;
+}					t_p_info;
 
 _Bool				g_flag[5];
 
@@ -75,6 +72,7 @@ t_dnode				*sort_node(t_dnode *node);
 ** print_dir.c
 */
 void				print_node(t_dnode *node);
+void				test_node(t_dnode *node);
 
 /*
 ** free_dir.c
@@ -84,6 +82,7 @@ void				free_node(t_dnode *node);
 /*
 ** utils.c
 */
+int					my_nbrlen(long long size);
 void				test_print(t_dnode *node);
 t_dnode				*node_add_last(t_dnode *begin_node, t_dnode *new_node);
 

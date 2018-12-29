@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 03:22:26 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/06 18:28:01 by fuhong           ###   ########.fr       */
+/*   Updated: 2018/12/04 12:38:28 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		free_node(t_dnode *node)
 {
 	t_dnode	*tmp;
 
-	ft_memdel(&node->p_info);
 	while (node)
 	{
 		tmp = node;
