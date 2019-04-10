@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/29 05:50:49 by fhong            ###   ########.fr       */
+/*   Updated: 2019/04/10 16:41:11 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void		print_node(t_dnode *node)
 		if (node->next)
 			(l_FLAG) ? printf("\n") : 0;
 		node = node->next;
+
 	}
+	free(p_info);
 	printf("\n");
 	while (R_FLAG && begin)
 	{
