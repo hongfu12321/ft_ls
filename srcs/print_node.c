@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/10 16:41:11 by fhong            ###   ########.fr       */
+/*   Updated: 2019/04/18 15:32:23 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 static void	print_node_detail(t_dir *dir, t_p_info *p_info)
 {
+	if (s_FLAG)
+		printf("%*lld ", p_info->max_block_size + 2, dir->st_blocks);
 	printf("%s", dir->permission);
 	printf("%*d", p_info->max_lnk + 2, dir->lnk_nbr);
 	printf("%*s", p_info->max_uid + 1, dir->uid);
@@ -39,6 +41,8 @@ static void	check_p_info(t_dnode *node, t_p_info *p_info)
 		p_info->max_gid = tmp;
 	if ((tmp = my_nbrlen(node->dir_info->file_size)) > p_info->max_size)
 		p_info->max_size = tmp;
+	if ((tmp = my_nbrlen(node->dir_info->st_blocks)) > p_info->max_block_size)
+		p_info->max_block_size= tmp;
 }
 
 static void	init(t_dnode *node, t_p_info *p_info)
@@ -48,9 +52,14 @@ static void	init(t_dnode *node, t_p_info *p_info)
 	p_info->max_uid = 0;
 	p_info->max_gid = 0;
 	p_info->max_size = 0;
+	p_info->max_block_size = 0;
+	p_info->total_blocks_size = 0;
 	while (node)
 	{
 		check_p_info(node, p_info);
+		if (ft_strcmp(".", node->dir_name) && ft_strcmp("..", node->dir_name))
+			if ((a_FLAG) == (node->dir_name[0] == '.') || node->dir_name[0] != '.')
+				p_info->total_blocks_size += node->dir_info->st_blocks;
 		node = node->next;
 	}
 }
@@ -72,8 +81,8 @@ void		print_node(t_dnode *node)
 	node = sort_node(node);
 	begin = node;
 	p_info = (t_p_info *)malloc(sizeof(t_p_info));
-	(l_FLAG) ? ft_printf("total %3d\n", 0) : 0;
 	init(node, p_info);
+	(l_FLAG) ? ft_printf("total %3d\n", p_info->total_blocks_size) : 0;
 	while (node)
 	{
 		if (!a_FLAG && node->dir_name[0] == '.')
@@ -82,7 +91,6 @@ void		print_node(t_dnode *node)
 			continue;
 		}
 		(l_FLAG) ? print_node_detail(node->dir_info, p_info) : 0;
-		//ft_printf("\033[34m%s\033[0m", node->dir_name);
 		printf("%-*s", p_info->max_name + 1, node->dir_name);
 		if (node->next)
 			(l_FLAG) ? printf("\n") : 0;

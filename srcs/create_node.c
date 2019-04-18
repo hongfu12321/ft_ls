@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:18:22 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/10 16:37:29 by fhong            ###   ########.fr       */
+/*   Updated: 2019/04/18 15:02:32 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_dnode		*create_node(char *dir_name, STAT statbuf)
 	node->dir_info->lnk_nbr = (int)statbuf.st_nlink;
 	node->dir_info->file_size = (long long)statbuf.st_size;
 	node->dir_info->mod_time = dir_mod_time(statbuf);
+	node->dir_info->st_blocks = statbuf.st_blocks;
 	dir_uid_gid(node->dir_info, &statbuf);
 	dir_permission(node->dir_info, &statbuf);
 	return (node);

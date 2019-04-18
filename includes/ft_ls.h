@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2018/12/29 05:44:10 by fhong            ###   ########.fr       */
+/*   Updated: 2019/04/18 15:31:56 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define a_FLAG 	g_flag[2]
 # define r_FLAG 	g_flag[3]
 # define t_FLAG 	g_flag[4]
+# define s_FLAG 	g_flag[5]
 
 # define DIRENT		struct dirent
 # define STAT		struct stat
@@ -36,6 +37,7 @@ typedef struct		s_dir
 	char			*uid;
 	char			*gid;
 	long long		file_size;
+	blkcnt_t		st_blocks;
 	char			*mod_time;
 }					t_dir;
 
@@ -54,9 +56,11 @@ typedef struct		s_p_info
 	int				max_uid;
 	int				max_gid;
 	int				max_size;
+	int				max_block_size;
+	blkcnt_t		total_blocks_size;
 }					t_p_info;
 
-_Bool				g_flag[5];
+_Bool				g_flag[6];
 
 /*
 ** create_dir.c

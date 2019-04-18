@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/10 16:43:20 by fhong            ###   ########.fr       */
+/*   Updated: 2019/04/18 15:33:29 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int		check_flag(char **av)
 	int		i;
 	int		j;
 	char	*tmp;
-	char 	flag[5] = "Rlart";
+	char 	flag[6] = "Rlarts";
 
-	ft_memset(g_flag, 0, 5);
+	ft_memset(g_flag, 0, 6);
 	i = 1;
 	while (av[i] && av[i][0] == '-')
 	{
@@ -83,12 +83,10 @@ int		main(int ac, char **av)
 			node = get_node(".");
 			check = 0;
 		}
-//		node = sort_node(node);
+		node = sort_node(node);
 		print_node(node);
 		free_node(node);
 		i++;
 	}
-//	while (1)
-//		;
 	return (0);
 }
