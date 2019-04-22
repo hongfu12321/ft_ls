@@ -4,7 +4,6 @@
 My own implementation of the famous Unix command: ls, using the C programming language.
 
 ### Requirements
-To be able to build and run this program you'll need a macbook, because I didn't make it portable for other systems. Sorry :(. As for software Requirements, you'll need:
 - GNU make
 - GCC
 
