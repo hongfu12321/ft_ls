@@ -76,7 +76,7 @@ t_dnode				*sort_node(t_dnode *node);
 /*
 ** print_dir.c
 */
-void				print_node(t_dnode *node);
+void				print_node(t_dnode *node, char *path);
 void				test_node(t_dnode *node);
 
 /*

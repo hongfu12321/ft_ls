@@ -88,7 +88,7 @@ int		main(int ac, char **av)
 			check = 0;
 		}
 		node = sort_node(node);
-		print_node(node);
+		print_node(node, node->dir_path);
 		free_node(node);
 		i++;
 	}

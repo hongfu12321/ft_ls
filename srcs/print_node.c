@@ -81,22 +81,22 @@ void		handle_R_flag(t_dnode *begin)
 		{
 			(begin->dir_path) ? ft_printf("\n%s/", begin->dir_path) : ft_printf("\n");
 			ft_printf("%s:\n", begin->dir_name);
-			print_node(begin->child);
+			print_node(begin->child, NULL);
 		}
 		begin = begin->next;
 	}
 }
 
-void		print_node(t_dnode *node)
+void		print_node(t_dnode *node, char *path)
 {
 	t_p_info	*p_info;
 	t_dnode		*begin;
 
-	node = sort_node(node);
 	begin = node;
 	p_info = (t_p_info *)malloc(sizeof(t_p_info));
 	init(node, p_info);
-	(l_FLAG) && ft_printf("total %d\n", p_info->total_blocks_size);
+	(l_FLAG) ? ft_printf("total %d\n", p_info->total_blocks_size) : 0;
+	(R_FLAG && path) ? ft_printf("%s:\n", path) : 0;
 	while (node)
 	{
 		if (!a_FLAG && node->dir_name[0] == '.')
@@ -112,6 +112,5 @@ void		print_node(t_dnode *node)
 	}
 	free(p_info);
 	ft_printf("\n");
-	// if (R_FLAG && begin)
-	// 	handle_R_flag(begin);
+	(R_FLAG && begin) ? handle_R_flag(begin) : 0;
 }
