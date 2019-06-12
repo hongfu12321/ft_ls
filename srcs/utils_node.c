@@ -29,7 +29,7 @@ void	test_print(t_dnode *node)
 {
 	while (node)
 	{
-		ft_printf("%s\n", node->dir_name);
+		ft_printf("%p\n", node);
 		node = node->next;
 	}
 }
@@ -45,4 +45,24 @@ int		my_nbrlen(long long size)
 		++len;
 	}
 	return (len);
+}
+
+char	*get_dir_path(char *str1, char *str2)
+{
+	int		str1_len;
+	int		str2_len;
+	int		len;
+	char	*dir_path;
+
+	if (!str1)
+		return (ft_strdup(str2));
+	str1_len = ft_strlen(str1);
+	str2_len = ft_strlen(str2);
+	len = str1_len + str2_len + 1;
+	dir_path = (char *)malloc(sizeof(char) * (len + 1));
+	dir_path[len] = '\0';
+	ft_strncpy(dir_path, str1, str1_len);
+	dir_path[str1_len] = '/';
+	ft_strncpy(&dir_path[str1_len + 1], str2, str2_len);
+	return dir_path;
 }

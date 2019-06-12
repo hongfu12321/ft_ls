@@ -29,16 +29,17 @@ int		check_flag(char **av)
 			if ((tmp = ft_strchr(flag, av[i][j])))
 				g_flag[tmp - flag] = 1;
 			else
-				ft_error("Usage: ft_ls[Rlart][file name]\n");
+				ft_exit("Usage: ft_ls[Rlart][file name]\n");
 		}
 		i++;
 	}
 	return (i);
 }
 
-t_dnode	*get_node(char *dir_name)
+t_dnode	*get_node(char *dir_name, char *dir_path)
 {
 	DIR		*dp;
+	char	*tmp_name;
 	t_dnode	*node;
 	t_dnode	*tmp;
 	DIRENT	*info;
@@ -52,12 +53,15 @@ t_dnode	*get_node(char *dir_name)
 	while ((info = readdir(dp)) != NULL)
 	{
 		lstat(info->d_name, &statbuf);
-		tmp = create_node(info->d_name, statbuf);
+		tmp = create_node(info->d_name, statbuf, dir_path);
 		if (S_ISDIR(statbuf.st_mode))
 		{
 			if (ft_strcmp(tmp->dir_name, ".") != 0 &&
 					ft_strcmp(tmp->dir_name, "..") != 0)
-				tmp->child = get_node(info->d_name);
+			{
+				tmp->child = get_node(info->d_name, (tmp_name = get_dir_path(tmp->dir_path, tmp->dir_name)));
+				ft_strdel(&tmp_name);
+			}
 		}
 		node = node_add_last(node, tmp);
 	}
@@ -76,11 +80,11 @@ int		main(int ac, char **av)
 	check = 0;
 	if (i == ac)
 		check = 1;
-	while (check == 1 || (i < ac && (node = get_node(av[i]))))
+	while (check == 1 || (i < ac && (node = get_node(av[i], av[i]))))
 	{
 		if (check == 1)
 		{
-			node = get_node(".");
+			node = get_node(".", ".");
 			check = 0;
 		}
 		node = sort_node(node);

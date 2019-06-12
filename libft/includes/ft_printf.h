@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjacques <mjacques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/10 19:35:27 by mjacques          #+#    #+#             */
-/*   Updated: 2018/09/20 00:21:06 by mjacques         ###   ########.fr       */
+/*   Created: 2018/08/10 14:26:49 by xzhu              #+#    #+#             */
+/*   Updated: 2018/08/10 14:26:50 by xzhu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,66 +14,87 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stddef.h>
-
+# include <unistd.h>
+# include <stdlib.h>
+# include <wchar.h>
 # include "libft.h"
 
-# define CONVERSER		"sScCpidDoOuUxX%"
-# define N_CONVERSER	15
+# define BUFF_SIZE	2048
+# define KNRM  "\x1B[0m"
+# define KRED  "\x1B[31m"
+# define KGRN  "\x1B[32m"
+# define KYEL  "\x1B[33m"
+# define KBLU  "\x1B[34m"
+# define KMAG  "\x1B[35m"
+# define KCYN  "\x1B[36m"
+# define KWHT  "\x1B[37m"
 
-typedef struct	s_var
+union						u_type
 {
-	char		*flags;
-	int			width;
-	int			precision;
-	char		*type;
-	char		converser;
-}				t_var;
+	int						di;
+	short int				hdi;
+	signed char				hhdi;
+	long int				ldi;
+	long long int			lldi;
+	intmax_t				jdi;
+	unsigned int			uox;
+	unsigned short int		huox;
+	unsigned char			hhuox;
+	unsigned long int		luox;
+	unsigned long long int	lluox;
+	uintmax_t				juox;
+	size_t					zdiuox;
+	unsigned char			c;
+	wchar_t					lc;
+	char					*s;
+	wchar_t					*ls;
+	unsigned long long int	p;
+}							;
 
-typedef struct	s_conv
+/*
+** for len 0=none, 1=hh, 2=h, 3=l, 4=ll, 5=z, 6=j
+*/
+
+typedef struct				s_pf
 {
-	char		conv;
-	void		(*fct)(t_var var, va_list ap);
-}				t_conv;
+	char					type;
+	char					len;
+	char					zero;
+	char					left;
+	char					plus;
+	char					hash;
+	char					space;
+	char					apos;
+	short					pre;
+	short					min_w;
+	short					dollor;
+	char					*temp;
+	char					buf[BUFF_SIZE];
+	short					bufsize;
+	short					totallen;
+	int						fd;
+	int						col[2];
+	union u_type			t;
+}							t_pf;
 
-extern t_conv	g_converser[N_CONVERSER];
-extern size_t	g_bytes;
+typedef void	(*t_pick_me)(t_pf *p, union u_type *t, va_list ap);
 
-int				ft_printf(const char *format, ...);
-
-int				ft_conveser(const char *format, va_list	ap);
-void			struct_init(t_var *var);
-int				ft_check_type(const char *str, t_var *var);
-int				ft_isflag(char c);
-int				ft_istype(const char *str, char **type);
-
-void			ft_converser_procent(t_var var, va_list ap);
-void			ft_converser_string(t_var var, va_list ap);
-void			ft_converser_wstring(t_var var, va_list ap);
-void			ft_converser_char(t_var var, va_list ap);
-void			ft_converser_wchar(t_var var, va_list ap);
-
-void			ft_converser_void(t_var var, va_list ap);
-void			ft_converser_hexa(t_var var, va_list ap);
-void			ft_converser_octal(t_var var, va_list ap);
-void			ft_converser_long(t_var var, va_list ap);
-
-void			ft_converser_number(t_var var, va_list ap);
-
-char			*ft_width_string(char *str, t_var var, int len);
-char			*ft_width_int(char *str, t_var var, int len);
-char			*number_flag(char *str, t_var var, int len);
-char			*ft_itoa_base_long(uint64_t value, int base, const char *btab);
-
-char			*ft_precision_string(char *str, t_var var);
-char			*ft_precision_wstring(wchar_t *wstr, t_var var);
-char			*ft_precision_int(char *str, t_var var, int len);
-char			*ft_precision_hex(char *str, t_var var, int len, int number);
-
-char			*free_str(char *str, char *newstr);
-char			*free_join(char *s1, char *s);
-char			*free_append(char *s1, char s);
-char			*ft_appendwchar(char *str, wchar_t c);
-void			ft_converser_finish(char *str);
-
+int							ft_printf(const char *format, ...);
+int							dispatch(t_pf *p, char *s, va_list ap[2], int fd);
+int							setup(t_pf *p, char *s, int i, va_list ap);
+void						ft_printf_diuoxb(t_pf *p,
+											union u_type *t, va_list ap);
+void						ft_printf_c(t_pf *p, union u_type *t, va_list ap);
+void						ft_printf_lc(t_pf *p, union u_type *t, va_list ap);
+void						ft_printf_s(t_pf *p, union u_type *t, va_list ap);
+void						ft_printf_ls(t_pf *p, union u_type *t, va_list ap);
+void						ft_printf_p(t_pf *p, union u_type *t, va_list ap);
+void						ft_putwchar(t_pf *p, wchar_t c);
+void						buf_s(t_pf *p, const void *s, short n);
+void						buf_c(t_pf *p, const char c);
+void						buf_flush(t_pf *p);
+void						setup_padding(t_pf *p);
+void						setup_prefix(t_pf *p, uintmax_t ag,
+											char *t_r[2], int inf[5]);
+void						setup_zero(t_pf *p, char *t_r[2], int inf[5]);
 #endif

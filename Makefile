@@ -13,7 +13,7 @@
 CC			= gcc
 RM			= rm -rf
 NAME		= ft_ls
-CFLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror
 LIBFT		= libft/libft.a
 INCLUDES	= -I includes/\
 			  -I libft/header

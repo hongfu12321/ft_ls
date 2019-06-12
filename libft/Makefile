@@ -3,69 +3,86 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mjacques <mjacques@student.42.fr>          +#+  +:+       +#+         #
+#    By: fhong <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/07/09 11:32:00 by mjacques          #+#    #+#              #
-#    Updated: 2018/12/02 16:39:25 by fhong            ###   ########.fr        #
+#    Created: 2018/05/02 10:18:57 by fhong             #+#    #+#              #
+#    Updated: 2019/05/28 23:18:05 by fhong            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC			= gcc
-RM			= rm -rf
-NAMELIB		= libft.a
-CFLAGS		= -Wall -Wextra -Werror
+NAME		:= libft.a
 
-HEADER		= -I includes/
+CC			:=	gcc
+CFLAGS		+= -Wall -Wextra -Werror
+CFLAGS		+= -I includes
 
-IS			= ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isspace.c\
-			  ft_isprint.c
-STRUCT		= ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c\
-			  ft_lstnew.c
-MEMORY		= ft_bzero.c ft_memalloc.c ft_memccpy.c ft_memcpy.c ft_memcmp.c\
-			  ft_memchr.c ft_memdel.c ft_memmove.c ft_memset.c
-NUMBER		= ft_atoi.c ft_itoa.c ft_itoa_base.c ft_int_swap.c
-PRINT		= ft_putchar_fd.c ft_putchar.c ft_putendl_fd.c ft_putendl.c\
-			  ft_putnbr_fd.c ft_putnbr.c ft_putstr_fd.c ft_putstr.c\
-			  ft_putwchar.c ft_putwstr.c
-STRING		= ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c ft_strcpy.c\
-			  ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c\
-			  ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c\
-			  ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c\
-			  ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c\
-			  ft_strtrim.c ft_strappend.c ft_strmcpy.c ft_wstrlen.c ft_error.c
-CHAR		= ft_tolower.c ft_toupper.c ft_wcharlen.c
+IS			:=	ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_islower ft_isspace		\
+				ft_isoperator ft_isprime ft_isupper
 
-GNL			= get_next_line.c
+LST			:=	ft_lstadd ft_lstadd_last ft_lstdel ft_lstdelone ft_lstiter ft_lstmap	\
+				ft_lstnew ft_putlst
 
-PRINTF		= ft_printf.c ft_arguments.c\
-			  ft_converser_sc.c ft_converser_pxu.c ft_converser_d.c\
-			  ft_converser_free.c ft_converser_width.c ft_converser_precision.c
+MEM			:=	ft_bzero ft_memalloc ft_memccpy ft_memchr ft_memcmp ft_memcpy ft_swap	\
+				ft_memdel ft_memmove ft_memset
 
-FUNCTIONS	= $(IS) $(STRUCT) $(MEMORY) $(NUMBER) $(PRINT) $(STRING) $(CHAR)
+NBR			:=	ft_atoi ft_intlen_base ft_intnew ft_size_t_new ft_uintlen_base ft_itoa 	\
+				ft_itoa_base ft_itoa_base_uint ft_atoi_intmax
 
-FILES		= $(addprefix srcs/, $(FUNCTIONS))\
-			  $(addprefix srcs/, $(addprefix gnl/, $(GNL)))\
-			  $(addprefix srcs/, $(addprefix ft_printf/, $(PRINTF)))
+PUT			:=	ft_put_base_unsigned ft_put_char_times ft_putchar ft_putchar_fd			\
+				ft_putendl ft_putendl_fd ft_putnbr ft_putnbr_base ft_putnbr_fd			\
+				ft_putnbr_uintmax_t ft_putnbr_uintmax_t_base ft_putnstr ft_putstr		\
+				ft_putstr_fd
 
-OBJECTS		= $(FILES:.c=.o)
+STR			:=	ft_strcat ft_strcmp ft_strdup ft_striteri ft_strlen ft_strncat			\
+				ft_strnequ ft_strnstr ft_strsplit ft_strtrim ft_wstrlen ft_strchr		\
+				ft_strcpy ft_strequ ft_strjoin ft_strmap ft_strncmp ft_strnew			\
+				ft_strrchr ft_strstr ft_tolower ft_strclr ft_strdel ft_striter			\
+				ft_strlcat ft_strmapi ft_strncpy ft_strnlen ft_strrev ft_strsub			\
+				ft_toupper
 
-.PHONY: all clean fclean re
+OTHER		:=	ft_exit ft_tablefree
 
-all: $(NAMELIB)
+GNL			:=	get_next_line
 
-%.o: %.c
-	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+FT_PRINTF	:=	buffer diuoxb_setup ft_printf_c ft_printf_p set_flags dispatch			\
+				ft_printf ft_printf_diuoxb ft_printf_s
 
-$(NAMELIB): $(OBJECTS)
-	@ar rc $(NAMELIB) $(OBJECTS)
-	@ranlib $(NAMELIB)
-	@echo "\033[32mLibft compiled!\033[0m"
+T_FT_PRINTF	:=	ft_printf get_args get_handle_func get_nbr_length is_function tools		\
+				handle/handle_char handle/handle_escape handle/handle_wstr				\
+				handle/handle_int handle/handle_ptr handle/handle_hex handle/handle_str	\
+				handle/handle_unsigned handle/handle_wchar handle/handle_octal
+
+FILES		:=	$(addprefix is/, $(IS))					\
+				$(addprefix lst/, $(LST))				\
+				$(addprefix mem/, $(MEM))				\
+				$(addprefix nbr/, $(NBR))				\
+				$(addprefix put/, $(PUT))				\
+				$(addprefix str/, $(STR))				\
+				$(addprefix others/, $(OTHER))			\
+				$(addprefix gnl/, $(GNL))				\
+				$(addprefix ft_printf/, $(FT_PRINTF))
+
+SRC			:=	$(addprefix src/, $(addsuffix .c, $(FILES)))
+OBJ			:=	$(SRC:.c=.o)
+
+
+.PHONY = all clean fclean re
+
+all: $(NAME)
+
+$(OBJ): %.o: %.c
+	@$(CC) -c $(CFLAGS) $< -o $@
+
+$(NAME): $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
+	@echo "\033[32mCompiled Library\033[0m"
 
 clean:
-	@$(RM) $(OBJECTS)
+	@rm -f $(OBJ)
+	@rm -f *.DS_Store
 
 fclean: clean
-	@$(RM) $(NAMELIB)
-	@echo "\033[31mLibft cleaned!\033[0m"
+	@rm -f $(NAME)
+	@echo "\033[31mRemoved Library\033[0m"
 
 re: fclean all

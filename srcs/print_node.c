@@ -16,13 +16,13 @@
 static void	print_node_detail(t_dir *dir, t_p_info *p_info)
 {
 	if (s_FLAG)
-		printf("%*lld ", p_info->max_block_size + 2, dir->st_blocks);
-	printf("%s", dir->permission);
-	printf("%*d", p_info->max_lnk + 2, dir->lnk_nbr);
-	printf("%*s", p_info->max_uid + 1, dir->uid);
-	printf("%*s", p_info->max_gid + 2, dir->gid);
-	printf("%*lld ", p_info->max_size + 2, dir->file_size);
-	printf("%s ", dir->mod_time);
+		ft_printf("%*lld ", p_info->max_block_size, dir->st_blocks);
+	ft_printf("%s", dir->permission);
+	ft_printf("%*d", p_info->max_lnk + 2, dir->lnk_nbr);
+	ft_printf("%*s", p_info->max_uid + 1, dir->uid);
+	ft_printf("%*s", p_info->max_gid + 2, dir->gid);
+	ft_printf("%*lld ", p_info->max_size + 2, dir->file_size);
+	ft_printf("%s ", dir->mod_time);
 }
 
 static void	check_p_info(t_dnode *node, t_p_info *p_info)
@@ -68,8 +68,22 @@ void	test_node(t_dnode *node)
 {
 	while (node)
 	{
-		printf("name = %s\n", node->dir_name);
+		ft_printf("name = %s\n", node->dir_name);
 		node = node->next;
+	}
+}
+
+void		handle_R_flag(t_dnode *begin)
+{
+	while (R_FLAG && begin)
+	{
+		if (R_FLAG && begin->child != NULL)
+		{
+			(begin->dir_path) ? ft_printf("\n%s/", begin->dir_path) : ft_printf("\n");
+			ft_printf("%s:\n", begin->dir_name);
+			print_node(begin->child);
+		}
+		begin = begin->next;
 	}
 }
 
@@ -82,7 +96,7 @@ void		print_node(t_dnode *node)
 	begin = node;
 	p_info = (t_p_info *)malloc(sizeof(t_p_info));
 	init(node, p_info);
-	(l_FLAG) ? ft_printf("total %3d\n", p_info->total_blocks_size) : 0;
+	(l_FLAG) && ft_printf("total %d\n", p_info->total_blocks_size);
 	while (node)
 	{
 		if (!a_FLAG && node->dir_name[0] == '.')
@@ -91,21 +105,13 @@ void		print_node(t_dnode *node)
 			continue;
 		}
 		(l_FLAG) ? print_node_detail(node->dir_info, p_info) : 0;
-		printf("%-*s", p_info->max_name + 1, node->dir_name);
+		ft_printf("%-*s", p_info->max_name + 1, node->dir_name);
 		if (node->next)
-			(l_FLAG) ? printf("\n") : 0;
+			(l_FLAG) ? ft_printf("\n") : 0;
 		node = node->next;
-
 	}
 	free(p_info);
-	printf("\n");
-	while (R_FLAG && begin)
-	{
-		if (R_FLAG && begin->child != NULL)
-		{
-			printf("\n%s:\n", begin->dir_name);
-			print_node(begin->child);
-		}
-		begin = begin->next;
-	}
+	ft_printf("\n");
+	// if (R_FLAG && begin)
+	// 	handle_R_flag(begin);
 }

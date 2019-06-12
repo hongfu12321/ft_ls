@@ -28,6 +28,8 @@ void		free_node(t_dnode *node)
 	while (node)
 	{
 		tmp = node;
+		if (node->dir_path)
+			ft_strdel(&node->dir_path);
 		ft_strdel(&node->dir_name);
 		free_dir(node->dir_info);
 		if (node->child != NULL)

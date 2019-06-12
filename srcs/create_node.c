@@ -56,13 +56,14 @@ static char	*dir_mod_time(STAT statbuf)
 	return (mod);
 }
 
-t_dnode		*create_node(char *dir_name, STAT statbuf)
+t_dnode		*create_node(char *dir_name, STAT statbuf, char *dir_path)
 {
 	t_dnode	*node;
 	
 	node = (t_dnode *)malloc(sizeof(t_dnode));
 	node->dir_name = ft_strdup(dir_name);
 	node->next = NULL;
+	node->dir_path = ft_strdup(dir_path);
 	node->child = NULL;
 	node->dir_info = (t_dir *)malloc(sizeof(t_dir));
 	node->dir_info->lnk_nbr = (int)statbuf.st_nlink;

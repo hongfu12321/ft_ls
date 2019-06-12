@@ -44,6 +44,7 @@ typedef struct		s_dir
 typedef struct		s_dnode
 {
 	char			*dir_name;
+	char			*dir_path;
 	t_dir			*dir_info;
 	struct s_dnode	*next;
 	struct s_dnode	*child;
@@ -65,7 +66,7 @@ _Bool				g_flag[6];
 /*
 ** create_dir.c
 */
-t_dnode				*create_node(char *dir_name, STAT statbuf);
+t_dnode				*create_node(char *dir_name, STAT statbuf, char *dir_path);
 
 /*
 ** sort_dir.c
@@ -88,6 +89,7 @@ void				free_node(t_dnode *node);
 */
 int					my_nbrlen(long long size);
 void				test_print(t_dnode *node);
+char				*get_dir_path(char *str1, char *str2);
 t_dnode				*node_add_last(t_dnode *begin_node, t_dnode *new_node);
 
 #endif
