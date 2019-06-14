@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:19:52 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 12:37:33 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:01:31 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ int		my_nbrlen(long long size)
 	return (len);
 }
 
+char	*get_color(char *permission)
+{
+	if (!G_FLAG)
+		return ("\033[0m");
+	if (permission[0] == 'd')
+		return ("\033[1;36m");
+	if (permission[0] == 'c')
+		return ("\033[42m");
+	if (permission[0] == 'b')
+		return ("\033[45m");
+	if (permission[0] == 'l')
+		return ("\033[35m");
+	if (permission[3] == 'x')
+		return ("\033[31m");
+	return ("\033[0m");
+}
+
 char	*get_dir_path(char *str1, char *str2)
 {
 	int		str1_len;
@@ -66,5 +83,5 @@ char	*get_dir_path(char *str1, char *str2)
 	ft_strncpy(dir_path, str1, str1_len);
 	dir_path[str1_len] = '/';
 	ft_strncpy(&dir_path[str1_len + 1], str2, str2_len);
-	return dir_path;
+	return (dir_path);
 }

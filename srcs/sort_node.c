@@ -6,12 +6,11 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 18:14:21 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 12:27:55 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 14:22:59 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include		"ft_ls.h"
-#define	D_TIME	dir_info->mod_time
+#include "ft_ls.h"
 
 static void		swap(t_dnode *a, t_dnode *b)
 {
@@ -55,9 +54,9 @@ static void		bubble_sort(t_dnode *node)
 		tmp = node->next;
 		while (tmp)
 		{
-			if (!t_FLAG && ft_strcmp(node->dir_name, tmp->dir_name) > 0)
+			if (!T_FLAG && ft_strcmp(node->dir_name, tmp->dir_name) > 0)
 				swap(node, tmp);
-			else if (t_FLAG)
+			else if (T_FLAG)
 			{
 				if (node->dir_info->mod_int < tmp->dir_info->mod_int)
 					swap(node, tmp);
@@ -68,11 +67,10 @@ static void		bubble_sort(t_dnode *node)
 	}
 }
 
-
 t_dnode			*sort_node(t_dnode *node)
 {
 	bubble_sort(node);
-	if (r_FLAG)
+	if (R_FLAG)
 		node = reverse_node(node);
 	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 13:31:24 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 14:40:42 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # include <grp.h>
 # include "../libft/includes/libft.h"
 
-# define R_FLAG		g_flag[0]
-# define l_FLAG 	g_flag[1]
-# define a_FLAG 	g_flag[2]
-# define r_FLAG 	g_flag[3]
-# define t_FLAG 	g_flag[4]
-# define s_FLAG 	g_flag[5]
+# define RR_FLAG	g_flag[0]
+# define L_FLAG 	g_flag[1]
+# define A_FLAG 	g_flag[2]
+# define R_FLAG 	g_flag[3]
+# define T_FLAG 	g_flag[4]
+# define S_FLAG 	g_flag[5]
 # define G_FLAG		g_flag[6]
 
 # define DIRENT		struct dirent
@@ -68,6 +68,12 @@ typedef struct		s_p_info
 _Bool				g_flag[7];
 
 /*
+** main.c
+*/
+t_dnode				*get_node(char *dir_name, char *dir_path);
+t_dnode				*get_node_helper(t_dnode *tmp);
+
+/*
 ** create_dir.c
 */
 t_dnode				*create_node(char *dir_name, STAT statbuf, char *dir_path);
@@ -94,10 +100,11 @@ void				free_node(t_dnode *node);
 int					my_nbrlen(long long size);
 void				test_print(t_dnode *node);
 char				*get_dir_path(char *str1, char *str2);
+char				*get_color(char *permission);
 t_dnode				*node_add_last(t_dnode *begin_node, t_dnode *new_node);
 
 #endif
 
 #ifndef st_mtime
-# define st_mtime	st_mtimespec.tv_sec
+# define ST_MTIME	st_mtimespec.tv_sec
 #endif

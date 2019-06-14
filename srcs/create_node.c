@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:18:22 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 12:32:15 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:00:04 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@ static void	dir_permission(t_dir *dir, STAT *statbuf)
 
 	dir->permission = (char *)malloc(sizeof(char) * 11);
 	dir->permission[10] = '\0';
+	buf[0] = '-';
 	if (S_ISDIR(statbuf->st_mode))
-		buf[0] = S_ISDIR(statbuf->st_mode) ? 'd' : '-';
-	else
-		buf[0] = S_ISLNK(statbuf->st_mode) ? 'l' : '-';
+		buf[0] = 'd';
+	else if (S_ISLNK(statbuf->st_mode))
+		buf[0] = 'l';
+	else if (S_ISCHR(statbuf->st_mode))
+		buf[0] = 'c';
+	else if (S_ISBLK(statbuf->st_mode))
+		buf[0] = 'b';
 	buf[1] = (statbuf->st_mode & S_IRUSR) ? 'r' : '-';
 	buf[2] = (statbuf->st_mode & S_IWUSR) ? 'w' : '-';
 	buf[3] = (statbuf->st_mode & S_IXUSR) ? 'x' : '-';
@@ -47,7 +52,7 @@ static void	dir_permission(t_dir *dir, STAT *statbuf)
 
 static char	*dir_mod_time(STAT statbuf)
 {
-	char 	*mod;
+	char	*mod;
 	char	*time;
 
 	mod = ft_strnew(12);
@@ -62,12 +67,13 @@ t_dnode		*create_node(char *dir_name, STAT statbuf, char *dir_path)
 {
 	char	buf[PATH_MAX + 1];
 	t_dnode	*node;
-	
+
+	if (!A_FLAG && dir_name[0] == '.')
+		return (NULL);
 	node = (t_dnode *)malloc(sizeof(t_dnode));
+	ft_bzero(node, sizeof(t_dnode));
 	node->dir_name = ft_strdup(dir_name);
-	node->next = NULL;
 	node->dir_path = ft_strdup(dir_path);
-	node->child = NULL;
 	node->dir_info = (t_dir *)malloc(sizeof(t_dir));
 	node->dir_info->lnk_nbr = (int)statbuf.st_nlink;
 	node->dir_info->file_size = (long long)statbuf.st_size;
@@ -79,7 +85,7 @@ t_dnode		*create_node(char *dir_name, STAT statbuf, char *dir_path)
 	if (S_ISLNK(statbuf.st_mode))
 	{
 		realpath(dir_name, buf);
-		node->dir_info->link_path = ft_strdup(buf);	
+		node->dir_info->link_path = ft_strdup(buf);
 	}
 	else
 		node->dir_info->link_path = NULL;
