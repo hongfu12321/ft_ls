@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 15:29:48 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:28:01 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void	print_node_detail(char *color, t_dnode *node, t_p_info *p_info)
 			ft_printf("%*lld ", p_info->max_block_size,
 					node->dir_info->st_blocks);
 		ft_printf("%s", node->dir_info->permission);
-		ft_printf("%*d", p_info->max_lnk + 2, node->dir_info->lnk_nbr);
-		ft_printf("%*s", p_info->max_uid + 1, node->dir_info->uid);
-		ft_printf("%*s", p_info->max_gid + 2, node->dir_info->gid);
-		ft_printf("%*lld ", p_info->max_size + 2, node->dir_info->file_size);
+		ft_printf("%*d ", p_info->max_lnk + 2, node->dir_info->lnk_nbr);
+		ft_printf("%-*s ", p_info->max_uid + 1, node->dir_info->uid);
+		ft_printf("%-*s ", p_info->max_gid + 1, node->dir_info->gid);
+		ft_printf("%*lld ", p_info->max_size, node->dir_info->file_size);
 		ft_printf("%s ", node->dir_info->mod_time);
 		ft_printf(color);
 		ft_printf("%s""\033[0m", node->dir_name);

@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:19:52 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 16:01:31 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:39:15 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*get_color(char *permission)
 {
 	if (!G_FLAG)
 		return ("\033[0m");
+	if (permission[9] == 't' && permission[8] == 'w')
+		return ("\033[32;7m");
 	if (permission[0] == 'd')
 		return ("\033[1;36m");
 	if (permission[0] == 'c')

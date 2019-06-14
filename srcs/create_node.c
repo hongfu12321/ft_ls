@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:18:22 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 16:00:04 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:35:44 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	dir_permission(t_dir *dir, STAT *statbuf)
 	buf[7] = (statbuf->st_mode & S_IROTH) ? 'r' : '-';
 	buf[8] = (statbuf->st_mode & S_IWOTH) ? 'w' : '-';
 	buf[9] = (statbuf->st_mode & S_IXOTH) ? 'x' : '-';
+	buf[9] = (statbuf->st_mode & S_ISVTX) ? 't' : buf[9];
 	ft_strncpy(dir->permission, buf, 10);
 }
 
