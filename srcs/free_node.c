@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 03:22:26 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/10 16:36:55 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 12:49:47 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void		free_node(t_dnode *node)
 		tmp = node;
 		if (node->dir_path)
 			ft_strdel(&node->dir_path);
-		ft_strdel(&node->dir_name);
-		free_dir(node->dir_info);
 		if (node->child != NULL)
 			free_node(node->child);
+		ft_strdel(&node->dir_name);
+		free_dir(node->dir_info);
 		node = node->next;
 		free(tmp);
 	}

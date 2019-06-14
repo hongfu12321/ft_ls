@@ -6,15 +6,18 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 16:34:54 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/18 15:32:23 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 13:29:27 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdio.h>
 
-static void	print_node_detail(t_dir *dir, t_p_info *p_info)
+static void	print_node_detail(char *color, t_dnode *node, t_p_info *p_info)
 {
+	t_dir	*dir;
+
+	dir = node->dir_info;
 	if (s_FLAG)
 		ft_printf("%*lld ", p_info->max_block_size, dir->st_blocks);
 	ft_printf("%s", dir->permission);
@@ -23,6 +26,11 @@ static void	print_node_detail(t_dir *dir, t_p_info *p_info)
 	ft_printf("%*s", p_info->max_gid + 2, dir->gid);
 	ft_printf("%*lld ", p_info->max_size + 2, dir->file_size);
 	ft_printf("%s ", dir->mod_time);
+	ft_printf(color);
+	ft_printf("%s""\033[0m", node->dir_name);
+	if (dir->link_path)
+		ft_printf(" -> %s", node->dir_info->link_path);
+	ft_printf("\n");
 }
 
 static void	check_p_info(t_dnode *node, t_p_info *p_info)
@@ -81,36 +89,55 @@ void		handle_R_flag(t_dnode *begin)
 		{
 			(begin->dir_path) ? ft_printf("\n%s/", begin->dir_path) : ft_printf("\n");
 			ft_printf("%s:\n", begin->dir_name);
-			print_node(begin->child, NULL);
+			begin->child = print_node(begin->child);
 		}
 		begin = begin->next;
 	}
 }
 
-void		print_node(t_dnode *node, char *path)
+char	*get_color(char* permission)
 {
+	if (!G_FLAG)
+		return ("\033[0m");
+	if (permission[0] == 'd')
+		return ("\033[1;36m");
+	if (permission[0] == 'l')
+		return ("\033[35m");
+	if (permission[3] == 'x')
+		return ("\033[31m");
+	return ("\033[0m");
+}
+
+t_dnode	*print_node(t_dnode *node)
+{
+	char		*color;
 	t_p_info	*p_info;
 	t_dnode		*begin;
 
+	node = sort_node(node);
 	begin = node;
-	p_info = (t_p_info *)malloc(sizeof(t_p_info));
-	init(node, p_info);
-	(l_FLAG) ? ft_printf("total %d\n", p_info->total_blocks_size) : 0;
-	(R_FLAG && path) ? ft_printf("%s:\n", path) : 0;
+	init(node, (p_info = (t_p_info *)malloc(sizeof(t_p_info))));
+	(l_FLAG) && ft_printf("total %d\n", p_info->total_blocks_size);
 	while (node)
 	{
+		color = get_color(node->dir_info->permission);
 		if (!a_FLAG && node->dir_name[0] == '.')
 		{
 			node = node->next;
 			continue;
 		}
-		(l_FLAG) ? print_node_detail(node->dir_info, p_info) : 0;
-		ft_printf("%-*s", p_info->max_name + 1, node->dir_name);
-		if (node->next)
-			(l_FLAG) ? ft_printf("\n") : 0;
+		if (l_FLAG)
+			print_node_detail(color, node, p_info);
+		else
+		{
+			ft_printf(color);
+			ft_printf("%-*s""\033[0m", p_info->max_name + 1, node->dir_name);
+		}
 		node = node->next;
 	}
 	free(p_info);
-	ft_printf("\n");
-	(R_FLAG && begin) ? handle_R_flag(begin) : 0;
+	(!l_FLAG) ? ft_printf("\n") : 0;
+	if (R_FLAG && begin)
+		handle_R_flag(begin);
+	return (begin);
 }

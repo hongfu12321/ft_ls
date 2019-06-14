@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 18:14:21 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/18 14:42:05 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 12:27:55 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ static void		bubble_sort(t_dnode *node)
 				swap(node, tmp);
 			else if (t_FLAG)
 			{
-				if (ft_strcmp(node->D_TIME, tmp->D_TIME) < 0)
-					swap(node, tmp);
-				else if (ft_strcmp(node->D_TIME, tmp->D_TIME) == 0 &&
-						ft_strcmp(node->dir_name, tmp->dir_name) < 0)
+				if (node->dir_info->mod_int < tmp->dir_info->mod_int)
 					swap(node, tmp);
 			}
 			tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:11:24 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/18 15:31:56 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 13:31:24 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_LS_H
 
 # include <dirent.h>
+# include <limits.h>
 # include <sys/stat.h>
 # include <time.h>
 # include <pwd.h>
@@ -26,6 +27,7 @@
 # define r_FLAG 	g_flag[3]
 # define t_FLAG 	g_flag[4]
 # define s_FLAG 	g_flag[5]
+# define G_FLAG		g_flag[6]
 
 # define DIRENT		struct dirent
 # define STAT		struct stat
@@ -39,6 +41,8 @@ typedef struct		s_dir
 	long long		file_size;
 	blkcnt_t		st_blocks;
 	char			*mod_time;
+	long			mod_int;
+	char			*link_path;
 }					t_dir;
 
 typedef struct		s_dnode
@@ -61,7 +65,7 @@ typedef struct		s_p_info
 	blkcnt_t		total_blocks_size;
 }					t_p_info;
 
-_Bool				g_flag[6];
+_Bool				g_flag[7];
 
 /*
 ** create_dir.c
@@ -76,7 +80,7 @@ t_dnode				*sort_node(t_dnode *node);
 /*
 ** print_dir.c
 */
-void				print_node(t_dnode *node, char *path);
+t_dnode				*print_node(t_dnode *node);
 void				test_node(t_dnode *node);
 
 /*

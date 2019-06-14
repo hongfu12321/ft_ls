@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:18:22 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/18 15:02:32 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 12:32:15 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,14 @@ static char	*dir_mod_time(STAT statbuf)
 	mod = ft_strnew(12);
 	time = ctime(&statbuf.st_mtime);
 	ft_strncpy(mod, &time[4], 12);
+	if (strcmp(&time[19], " 2019") < 0)
+		ft_strncpy(&mod[7], &time[19], 5);
 	return (mod);
 }
 
 t_dnode		*create_node(char *dir_name, STAT statbuf, char *dir_path)
 {
+	char	buf[PATH_MAX + 1];
 	t_dnode	*node;
 	
 	node = (t_dnode *)malloc(sizeof(t_dnode));
@@ -69,8 +72,16 @@ t_dnode		*create_node(char *dir_name, STAT statbuf, char *dir_path)
 	node->dir_info->lnk_nbr = (int)statbuf.st_nlink;
 	node->dir_info->file_size = (long long)statbuf.st_size;
 	node->dir_info->mod_time = dir_mod_time(statbuf);
+	node->dir_info->mod_int = statbuf.st_mtime;
 	node->dir_info->st_blocks = statbuf.st_blocks;
 	dir_uid_gid(node->dir_info, &statbuf);
 	dir_permission(node->dir_info, &statbuf);
+	if (S_ISLNK(statbuf.st_mode))
+	{
+		realpath(dir_name, buf);
+		node->dir_info->link_path = ft_strdup(buf);	
+	}
+	else
+		node->dir_info->link_path = NULL;
 	return (node);
 }

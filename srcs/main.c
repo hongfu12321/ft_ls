@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/18 15:33:29 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 13:36:41 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int		check_flag(char **av)
 	int		i;
 	int		j;
 	char	*tmp;
-	char 	flag[6] = "Rlarts";
+	char 	flag[7] = "RlartsG";
 
-	ft_memset(g_flag, 0, 6);
+	ft_memset(g_flag, 0, 7);
 	i = 1;
 	while (av[i] && av[i][0] == '-')
 	{
@@ -29,7 +29,7 @@ int		check_flag(char **av)
 			if ((tmp = ft_strchr(flag, av[i][j])))
 				g_flag[tmp - flag] = 1;
 			else
-				ft_exit("Usage: ft_ls[Rlart][file name]\n");
+				ft_exit("Usage: ft_ls[RlartsG][file name]\n");
 		}
 		i++;
 	}
@@ -54,7 +54,7 @@ t_dnode	*get_node(char *dir_name, char *dir_path)
 	{
 		lstat(info->d_name, &statbuf);
 		tmp = create_node(info->d_name, statbuf, dir_path);
-		if (S_ISDIR(statbuf.st_mode))
+		if (S_ISDIR(statbuf.st_mode) && R_FLAG)
 		{
 			if (ft_strcmp(tmp->dir_name, ".") != 0 &&
 					ft_strcmp(tmp->dir_name, "..") != 0)
@@ -73,23 +73,25 @@ t_dnode	*get_node(char *dir_name, char *dir_path)
 int		main(int ac, char **av)
 {
 	int		i;
-	int		check;
 	t_dnode	*node;
 
 	i = (ac > 1) ? check_flag(av) : 1;
-	check = 0;
 	if (i == ac)
-		check = 1;
-	while (check == 1 || (i < ac && (node = get_node(av[i], av[i]))))
 	{
-		if (check == 1)
-		{
-			node = get_node(".", ".");
-			check = 0;
-		}
-		node = sort_node(node);
-		print_node(node, node->dir_path);
+		node = get_node(".", ".");
+		node = print_node(node);
 		free_node(node);
+	}
+	while (i < ac)
+	{
+		node = get_node(av[i], av[i]);
+		if (node)
+		{
+			node = print_node(node);
+			free_node(node);
+		}
+		else
+			ft_printf("ls: %s: No such file or directory\n", av[i]);
 		i++;
 	}
 	return (0);

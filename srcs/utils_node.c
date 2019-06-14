@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 16:19:52 by fhong             #+#    #+#             */
-/*   Updated: 2019/04/10 16:37:11 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 12:37:33 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	test_print(t_dnode *node)
 {
 	while (node)
 	{
-		ft_printf("%p\n", node);
+		ft_printf("%s, %p\n", node->dir_name, node);
+		if (node->child)
+			test_print(node->child);
 		node = node->next;
 	}
 }
