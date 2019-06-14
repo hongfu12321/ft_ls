@@ -6,7 +6,7 @@
 /*   By: fhong <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 21:09:39 by fhong             #+#    #+#             */
-/*   Updated: 2019/06/14 16:00:38 by fhong            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:17:56 by fhong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,5 @@ int		main(int ac, char **av)
 			ft_printf("ls: %s: No such file or directory\n", av[i]);
 		i++;
 	}
-	while(1) ;
 	return (0);
 }
